@@ -2,32 +2,59 @@ import React from "react";
 import ReactDOM from "react-dom";
 import "./index.css";
 
-// const element = React.createElement("h1", null, "Welcome to React Programming");
+var DisplayEmployeeInfo = employee => {
+  return (
+    <div>
+      <h1>Employee Details...</h1>
+      <p>
+        <label>
+          Employee ID : <b>{employee.Id}</b>
+        </label>
+      </p>
+      <p>
+        <label>
+          Employee Name : <b>{employee.Name}</b>
+        </label>
+      </p>
+      <p>
+        <label>
+          Employee Location : <b>{employee.Location}</b>
+        </label>
+      </p>
+      <p>
+        <label>
+          Employee Salary : <b>{employee.Salary}</b>
+        </label>
+      </p>
+      <Department
+        deptName={employee.deptName}
+        headName={employee.headName}
+      ></Department>
+    </div>
+  );
+};
 
-// ReactDOM.render(element, document.getElementById("root"));
+const Department = deptInfo => {
+  return (
+    <div>
+      <p>
+        Dept Name is : <b>{deptInfo.deptName}</b>
+      </p>
+      <p>
+        Dept Head is : <b>{deptInfo.headName}</b>
+      </p>
+    </div>
+  );
+};
 
-const element = React.createElement(
-  "div",
-  { className: "testClass" },
-  React.createElement("h1", null, "Welcome to React"),
-  React.createElement("h1", null, "Understanding the Creation of Elements")
+const element = (
+  <DisplayEmployeeInfo
+    Id="101"
+    Name="Pragim"
+    Location="Bangalore"
+    Salary="12345"
+    deptName="UI Dev"
+    headName="Pragim Tech"
+  ></DisplayEmployeeInfo>
 );
-
 ReactDOM.render(element, document.getElementById("root"));
-
-// const element = <h1 className="testClass">Welcome to React Programming..</h1>;
-// ReactDOM.render(element, document.getElementById("root"));
-
-// const newElement = (
-//   <h1 className="testClass">Understanding the Creation of Elements</h1>
-// );
-// ReactDOM.render(newElement, document.getElementById("root"));
-
-// const element = (
-//   <div className="testClass">
-//     <h1>Welcome to React Programming...</h1>
-//     <h1>Understanding the Creation of React Elements...</h1>
-//   </div>
-// );
-
-// ReactDOM.render(element, document.getElementById("root"));
