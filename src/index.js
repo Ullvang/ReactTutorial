@@ -1,73 +1,70 @@
 import React from "react";
 import ReactDOM from "react-dom";
 
-class Employee extends React.Component {
+class CountCharacters extends React.Component {
   constructor(props) {
     super(props);
-    console.log(this.props);
+    this.state = {
+      message: "",
+      counter: 10
+    };
   }
-  render() {
-    return (
-      <div>
-        <h2>Employee details...</h2>
-        <p>
-          <label>
-            Employee ID : <b>{this.props.Id}</b>
-          </label>
-        </p>
-        <p>
-          <label>
-            Employee Name : <b>{this.props.Name}</b>
-          </label>
-        </p>
-        <p>
-          <label>
-            Employee Location : <b>{this.props.Location}</b>
-          </label>
-        </p>
-        <p>
-          <label>
-            Employee Salary : <b>{this.props.Salary}</b>
-          </label>
-        </p>
-        <Department
-          DeptName={this.props.DeptName}
-          HeadName={this.props.HeadName}
-        ></Department>
-      </div>
-    );
-  }
-}
 
-class Department extends React.Component {
+  onMessageChange(text) {
+    this.setState({
+      message: "Message has " + text.length + " number of Characters"
+    });
+  }
+
   render() {
     return (
       <div>
-        <h2>Department Details...</h2>
+        <h2>Welcome to Count Characters Component...</h2>
         <p>
           <label>
-            Dept Name : <b>{this.props.DeptName}</b>
+            Enter Message :{" "}
+            <input
+              type="text"
+              onChange={e => this.onMessageChange(e.target.value)}
+            />
           </label>
         </p>
         <p>
-          <label>
-            Head Name : <b>{this.props.HeadName}</b>
-          </label>
+          <label>{this.state.message}</label>
+        </p>
+        <p>
+          <label>{this.state.counter}</label>
         </p>
       </div>
     );
   }
 }
 
-const element = (
-  <Employee
-    Id="101"
-    Name="Pragim"
-    Location="Bangalore"
-    Salary="12345"
-    DeptName="Dev"
-    HeadName="Pragim Tech"
-  ></Employee>
-);
+class Employee extends React.Component {
+  state = { counter: 0 };
+  addEmployee = () => {
+    this.setState({ counter: this.state.counter + 1 });
+    // this.counter = this.counter + 1;
+    // alert("Adding a New Employee");
+    // alert("Clicked " + this.counter + " times.");
+  };
+  render() {
+    return (
+      <div>
+        <h2>Welcome to Employee Component..</h2>
+        <p>
+          <button onClick={this.addEmployee}>Add Employee</button>
+        </p>
+        <p>
+          <label>
+            Add Employee Button is Clicked : <b>{this.state.counter}</b> times.
+          </label>
+        </p>
+      </div>
+    );
+  }
+}
+
+const element = <CountCharacters></CountCharacters>;
 
 ReactDOM.render(element, document.getElementById("root"));
