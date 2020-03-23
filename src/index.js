@@ -1,76 +1,60 @@
 import React from "react";
 import ReactDOM from "react-dom";
 
-const employeeContext = React.createContext();
+const EmployeeContext = React.createContext({
+  data: "",
+  changeEmployeeInfo: () => {}
+});
 
 class App extends React.Component {
   constructor(props) {
     super(props);
+
     this.state = {
-      Id: 101,
-      Name: "Pragim Tech",
-      Location: "Bangalore",
-      Salary: 15000
+      data: {
+        Id: 101,
+        Name: "Pragim Tech",
+        Location: "Bangalore",
+        Salary: 15000
+      },
+      changeEmployeeInfo: this.updateEmployeeDetails
     };
   }
 
-  changeEmployeeData = () => {
-    this.setState({ Id: 102 });
+  updateEmployeeDetails = () => {
+    this.setState({ data: { Id: 102 } });
   };
-
   render() {
     return (
       <div>
         <h2>Welcome to App Component</h2>
         <p>
           <label>
-            Employee ID : <b>{this.state.Id}</b>
+            Employee Id : <b>{this.state.data.id}</b>
           </label>
         </p>
-        <employeeContext.Provider value={this.state}>
+        <EmployeeContext.Provider value={this.state}>
           <Employee></Employee>
-        </employeeContext.Provider>
-        <p>
-          <button onClick={this.changeEmployeeData}>Update</button>
-        </p>
+        </EmployeeContext.Provider>
       </div>
     );
   }
 }
 
 class Employee extends React.Component {
-  static context = employeeContext;
+  static context = EmployeeContext;
   render() {
     return (
       <div>
         <h2>Welcome to Employee Component...</h2>
         <p>
-          <label>
-            Employee ID : <b>{this.context.Id}</b>
-          </label>
+          <label>{/* Employee ID : <b>{this.context.data.Id}</b> */}</label>
         </p>
-        <Salary></Salary>
-      </div>
-    );
-  }
-}
-
-class Salary extends React.Component {
-  static context = employeeContext;
-  render() {
-    return (
-      <div>
-        <h2>Welcome to Salary Component...</h2>
-        <p>
-          <label>
-            Employee ID : <b>{this.context.Id}</b>
-          </label>
-        </p>
+        <button onClick={this.context.changeEmployeeInfo}>Update</button>
       </div>
     );
   }
 }
 
 const element = <App></App>;
-
 ReactDOM.render(element, document.getElementById("root"));
